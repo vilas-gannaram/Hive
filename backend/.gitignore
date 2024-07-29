@@ -1,5 +1,6 @@
 node_modules
 dist
 prisma/*.db  # Exclude all SQLite database files in the prisma directory
+prisma/dev.db
 .env
 tsconfig.tsbuildinfo
