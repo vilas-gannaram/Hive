@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { ObjectType, Field, ID } from 'type-graphql';
+import UserProfile from '../userProfile/userProfile.schema';
 
 @ObjectType()
 export default class User {
@@ -12,9 +13,8 @@ export default class User {
 	@Field()
 	username: string;
 
-	constructor(id: number, email: string, username: string) {
-		this.id = id;
-		this.email = email;
-		this.username = username;
-	}
+	password: string;
+
+	@Field(() => UserProfile, { nullable: true })
+	profile?: UserProfile | null;
 }
