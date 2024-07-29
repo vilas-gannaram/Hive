@@ -1,5 +1,5 @@
 node_modules
 dist
-# Keep environment variables out of version control
+prisma/*.db  # Exclude all SQLite database files in the prisma directory
 .env
 tsconfig.tsbuildinfo
