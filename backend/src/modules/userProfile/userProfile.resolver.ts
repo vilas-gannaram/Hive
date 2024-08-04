@@ -1,36 +1,20 @@
-import {
-	Ctx,
-	Query,
-	Resolver,
-	Arg,
-	FieldResolver,
-	Root,
-	Int,
-} from 'type-graphql';
+import { Query, Resolver, Arg, FieldResolver, Root, Int } from 'type-graphql';
 import User from '../user/user.schema';
 import UserProfile from './userProfile.schema';
-import { Context } from '../../types/context';
+import UserService from '../user/user.service';
+import UserProfileService from './userProfile.service';
 
 @Resolver(UserProfile)
 export default class UserProfileResolver {
 	@Query(() => UserProfile, { nullable: true })
 	async userProfile(
-		@Arg('id', () => Int) id: number,
-		@Ctx() ctx: Context
+		@Arg('id', () => Int) id: number
 	): Promise<UserProfile | null> {
-		return await ctx.prisma.userProfile.findUnique({
-			where: { id },
-			include: { user: true },
-		});
+		return await UserProfileService.getUserProfileById(id);
 	}
 
 	@FieldResolver(() => User, { nullable: true })
-	async user(
-		@Root() userProfile: UserProfile,
-		@Ctx() ctx: Context
-	): Promise<User | null> {
-		return await ctx.prisma.user.findUnique({
-			where: { id: userProfile.id },
-		});
+	async user(@Root() userProfile: UserProfile): Promise<User | null> {
+		return await UserService.getUserById(userProfile.userId);
 	}
 }
