@@ -1,9 +1,7 @@
 import 'reflect-metadata';
 import { Arg, Resolver, Query, FieldResolver, Root, Int } from 'type-graphql';
-import User from './user.schema';
+import User, { UserProfile } from './user.schema';
 import UserService from './user.service';
-import UserProfile from '../userProfile/userProfile.schema';
-import UserProfileService from '../userProfile/userProfile.service';
 
 @Resolver(User)
 export default class UserResolver {
@@ -22,6 +20,6 @@ export default class UserResolver {
 	// Field Resolver: Profile field
 	@FieldResolver(() => UserProfile, { nullable: true })
 	async profile(@Root() user: User): Promise<UserProfile | null> {
-		return await UserProfileService.getUserProfileByUserId(user.id);
+		return await UserService.getUserProfileByUserId(user.id);
 	}
 }
