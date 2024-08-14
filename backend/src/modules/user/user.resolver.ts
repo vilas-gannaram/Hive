@@ -1,7 +1,18 @@
 import 'reflect-metadata';
-import { Arg, Resolver, Query, FieldResolver, Root, Int } from 'type-graphql';
-import User, { UserProfile } from './user.schema';
+import {
+	Arg,
+	Resolver,
+	Query,
+	FieldResolver,
+	Root,
+	Int,
+	Mutation,
+} from 'type-graphql';
+import * as bcrypt from 'bcryptjs';
+
+import User, { UserProfile, UserImage } from './user.schema';
 import UserService from './user.service';
+import { CreateUserInput } from './user.input';
 
 @Resolver(User)
 export default class UserResolver {
@@ -21,5 +32,23 @@ export default class UserResolver {
 	@FieldResolver(() => UserProfile, { nullable: true })
 	async profile(@Root() user: User): Promise<UserProfile | null> {
 		return await UserService.getUserProfileByUserId(user.id);
+	}
+
+	// Field Resolver: Images field
+	@FieldResolver(() => [UserImage], { nullable: true })
+	async images(@Root() profile: UserProfile): Promise<UserImage[] | null> {
+		return UserService.getUserImagesByProfileId(profile.id);
+	}
+
+	//  MUTATIONS:
+	//  createUser
+	@Mutation(() => User)
+	async createUser(@Arg('data') data: CreateUserInput): Promise<User | null> {
+		const hashedPassword = await bcrypt.hash(data.password, 12);
+
+		return await UserService.createUser({
+			...data,
+			password: hashedPassword,
+		});
 	}
 }

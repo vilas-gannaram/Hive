@@ -2,6 +2,22 @@ import 'reflect-metadata';
 import { ObjectType, Field, ID } from 'type-graphql';
 
 @ObjectType()
+export class UserImage {
+	@Field(() => ID)
+	id: number;
+
+	@Field()
+	url: string;
+
+	@Field()
+	type: string;
+
+	profileId: number;
+
+	profile?: UserProfile;
+}
+
+@ObjectType()
 export class UserProfile {
 	@Field(() => ID)
 	id: number;
