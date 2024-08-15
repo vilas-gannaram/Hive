@@ -14,10 +14,13 @@
 	"dependencies": {
 		"@apollo/server": "^4.10.5",
 		"@prisma/client": "^5.17.0",
+		"@types/jsonwebtoken": "^9.0.6",
 		"bcryptjs": "^2.4.3",
 		"class-validator": "^0.14.1",
+		"dotenv": "^16.4.5",
 		"graphql": "^16.9.0",
 		"graphql-scalars": "^1.23.0",
+		"jsonwebtoken": "^9.0.2",
 		"reflect-metadata": "^0.2.2",
 		"type-graphql": "^2.0.0-rc.2"
 	},
