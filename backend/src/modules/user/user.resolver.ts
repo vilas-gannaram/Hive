@@ -47,12 +47,6 @@ export default class UserResolver {
 		return await UserService.getUserProfileByUserId(user.id);
 	}
 
-	// Field Resolver: Images field
-	@FieldResolver(() => [UserImage], { nullable: true })
-	async images(@Root() profile: UserProfile): Promise<UserImage[] | null> {
-		return UserService.getUserImagesByProfileId(profile.id);
-	}
-
 	//  MUTATIONS:
 	//  createUser
 	@Mutation(() => User)
@@ -65,5 +59,13 @@ export default class UserResolver {
 			...data,
 			password: hashedPassword,
 		});
+	}
+}
+
+@Resolver(() => UserProfile)
+export class UserProfileResolver {
+	@FieldResolver(() => [UserImage], { nullable: true })
+	async images(@Root() profile: UserProfile): Promise<UserImage[] | null> {
+		return UserService.getUserImagesByProfileId(profile.id);
 	}
 }

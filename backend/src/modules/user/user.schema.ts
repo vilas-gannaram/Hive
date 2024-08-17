@@ -1,5 +1,6 @@
 import 'reflect-metadata';
 import { ObjectType, Field, ID } from 'type-graphql';
+import { IsEmail, Min, Max } from 'class-validator';
 
 @ObjectType()
 export class UserImage {
@@ -47,8 +48,11 @@ export default class User {
 	id: number;
 
 	@Field(() => String)
+	@IsEmail()
 	email: string;
 
+	@Min(3)
+	@Max(30)
 	@Field(() => String)
 	username: string;
 

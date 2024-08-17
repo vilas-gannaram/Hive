@@ -2,6 +2,7 @@ import * as jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import prisma from '@config/prisma';
 import AuthPayload from './auth.payload';
+import CustomError from '@utils/customError';
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;
@@ -11,23 +12,17 @@ export default class AuthService {
 		const user = await prisma.user.findUnique({ where: { email } });
 
 		if (!user) {
-			throw new Error('User not found');
+			throw CustomError.conflict('User already exists');
 		}
 
-		if (!user || !bcrypt.compareSync(password, user.password)) {
-			throw new Error('Invalid credentials');
+		if (!bcrypt.compareSync(password, user.password)) {
+			throw CustomError.badRequest('Invalid credentials');
 		}
 
-		const accessToken = jwt.sign({ userId: user.id }, ACCESS_TOKEN_SECRET, {
-			expiresIn: '15m',
-		});
-		const refreshToken = jwt.sign({ userId: user.id }, REFRESH_TOKEN_SECRET, {
-			expiresIn: '7d',
-		});
+		const tokens = await this.generateTokens(user.id);
 
 		return {
-			accessToken,
-			refreshToken,
+			...tokens,
 			userId: user.id,
 		};
 	}
@@ -71,4 +66,15 @@ export default class AuthService {
 
 	// 	return true;
 	// }
+
+	static async generateTokens(userId: number) {
+		const accessToken = jwt.sign({ userId }, ACCESS_TOKEN_SECRET, {
+			expiresIn: '15m',
+		});
+		const refreshToken = jwt.sign({ userId }, REFRESH_TOKEN_SECRET, {
+			expiresIn: '7d',
+		});
+
+		return { accessToken, refreshToken };
+	}
 }

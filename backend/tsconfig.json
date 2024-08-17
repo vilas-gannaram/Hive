@@ -12,7 +12,8 @@
 		"paths": {
 			"@config/*": ["src/config/*"],
 			"@modules/*": ["src/modules/*"],
-			"@middlewares/*": ["src/middlewares/*"]
+			"@middlewares/*": ["src/middlewares/*"],
+			"@utils/*": ["src/utils/*"]
 		} /* Paths to create aliases for cleaner imports. */,
 
 		/* TypeScript Compiler Features */

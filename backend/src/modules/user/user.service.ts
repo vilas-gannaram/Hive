@@ -1,6 +1,8 @@
 import 'reflect-metadata';
 import prisma from '@config/prisma';
 import { CreateUserInput } from './user.input';
+import AuthService from '@modules/auth/auth.service';
+import CustomError from '@utils/customError';
 
 export default class UserService {
 	static getUsers = async () => {
@@ -12,7 +14,15 @@ export default class UserService {
 	};
 
 	static createUser = async (userData: CreateUserInput) => {
-		return await prisma.user.create({ data: userData });
+		const email = await prisma.user.findFirst({
+			where: { email: userData.email },
+		});
+
+		if (email) throw CustomError.conflict('Email already exists');
+
+		const user = await prisma.user.create({ data: userData });
+		const tokens = await AuthService.generateTokens(user.id);
+		return { ...user, ...tokens };
 	};
 
 	//  USER_PROFILE
