@@ -1,14 +1,14 @@
 import 'reflect-metadata';
-import { ObjectType, Field } from 'type-graphql';
+import { ObjectType, Field, Int } from 'type-graphql';
 
 @ObjectType()
 export default class AuthPayload {
-	@Field()
+	@Field(() => String)
 	accessToken: string;
 
-	@Field()
+	@Field(() => String)
 	refreshToken: string;
 
-	@Field()
+	@Field(() => Int)
 	userId: number;
 }

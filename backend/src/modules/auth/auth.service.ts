@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
-import prisma from '../../config/prisma';
-import { AuthPayload } from './auth.payload';
+import prisma from '@config/prisma';
+import AuthPayload from './auth.payload';
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET!;

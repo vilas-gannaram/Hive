@@ -1,6 +1,6 @@
 import 'reflect-metadata';
-import prisma from '../../config/prisma';
-import { CreateUserInput, CreateUserProfileInput } from './user.input';
+import prisma from '@config/prisma';
+import { CreateUserInput } from './user.input';
 
 export default class UserService {
 	static getUsers = async () => {

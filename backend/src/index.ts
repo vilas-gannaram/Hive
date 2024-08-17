@@ -4,13 +4,14 @@ import { startStandaloneServer } from '@apollo/server/standalone';
 import { GraphQLScalarType } from 'graphql';
 import { DateTimeResolver } from 'graphql-scalars';
 import { buildSchema } from 'type-graphql';
+import { config } from 'dotenv';
+
 import type { Request } from 'express';
 
-import dotenv from 'dotenv';
-dotenv.config();
+config();
 
-import Context from './types/context';
-import resolvers from './modules';
+import Context from '@config/context';
+import resolvers from '@modules/index';
 
 const app = async () => {
 	const schema = await buildSchema({
@@ -23,7 +24,7 @@ const app = async () => {
 	const { url } = await startStandaloneServer(server, {
 		listen: { port: 4000 },
 		context: async ({ req }): Promise<Context> => {
-			return { req: req as Request }; // Returning req and res to match the Context interface
+			return { req: req as Request, userId: null };
 		},
 	});
 

@@ -6,10 +6,10 @@ export class UserImage {
 	@Field(() => ID)
 	id: number;
 
-	@Field()
+	@Field(() => String)
 	url: string;
 
-	@Field()
+	@Field(() => String)
 	type: string;
 
 	profileId: number;
@@ -36,6 +36,9 @@ export class UserProfile {
 
 	// @Field(() => User, { nullable: true })
 	user?: User;
+
+	@Field(() => [UserImage], { nullable: true })
+	images?: UserImage[];
 }
 
 @ObjectType()
@@ -43,10 +46,10 @@ export default class User {
 	@Field(() => ID)
 	id: number;
 
-	@Field()
+	@Field(() => String)
 	email: string;
 
-	@Field()
+	@Field(() => String)
 	username: string;
 
 	password: string;
