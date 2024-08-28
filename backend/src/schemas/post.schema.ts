@@ -1,27 +1,28 @@
 import 'reflect-metadata';
-import User from 'src/schemas/user.schema';
-import { Field, ObjectType } from 'type-graphql';
+import { Field, ID, ObjectType } from 'type-graphql';
+import User from './user.schema';
 
 @ObjectType()
 export default class Post {
-	@Field()
+	@Field(() => ID)
 	id: number;
 
-	@Field()
+	@Field(() => String)
 	title: string;
 
-	@Field()
+	@Field(() => String)
 	content: string;
 
-	@Field()
-	image_url: string;
+	@Field(() => String, { nullable: true })
+	image_url?: string | null;
 
-	@Field()
+	@Field(() => Date)
 	createdAt: Date;
 
-	@Field()
+	@Field(() => Date)
 	updatedAt: Date;
 
-	@Field(() => User)
-	author: User;
+	userId?: number;
+
+	author?: User;
 }

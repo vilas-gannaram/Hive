@@ -12,11 +12,13 @@ import {
 } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 
-import User, { UserProfile, UserImage } from '../schemas/user.schema';
+import User, { UserProfile, UserImage } from '@schemas/user.schema';
 import UserService from '@services/user.service';
 import { CreateUserInput } from '@inputs/user.input';
 import Context from '@config/context';
 import authMiddleware from '@middlewares/auth.middleware';
+import Post from '@schemas/post.schema';
+import PostService from '@services/post.service';
 
 @Resolver(User)
 export default class UserResolver {
@@ -42,9 +44,15 @@ export default class UserResolver {
 	}
 
 	// Field Resolver: Profile field
-	@FieldResolver(() => UserProfile, { nullable: true })
+@FieldResolver(() => UserProfile, { nullable: true })
 	async profile(@Root() user: User): Promise<UserProfile | null> {
 		return await UserService.getUserProfileByUserId(user.id);
+	}
+
+	@FieldResolver(() => [Post], { nullable: true })
+	async posts(@Root() user: User): Promise<Post[] | null> {
+		if (!user.id) return null;
+		return PostService.getPostsByUserId(user.id);
 	}
 
 	//  MUTATIONS:

@@ -1,6 +1,7 @@
 import 'reflect-metadata';
 import { ObjectType, Field, ID } from 'type-graphql';
 import { IsEmail, Min, Max } from 'class-validator';
+import Post from './post.schema';
 
 @ObjectType()
 export class UserImage {
@@ -32,10 +33,8 @@ export class UserProfile {
 	@Field(() => String, { nullable: true })
 	bio?: string | null;
 
-	// @Field(() => Int)
 	userId: number;
 
-	// @Field(() => User, { nullable: true })
 	user?: User;
 
 	@Field(() => [UserImage], { nullable: true })
@@ -60,4 +59,7 @@ export default class User {
 
 	@Field(() => UserProfile, { nullable: true })
 	profile?: UserProfile;
+
+	@Field(() => [Post!])
+	posts?: Post[];
 }
