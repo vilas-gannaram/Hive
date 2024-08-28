@@ -12,9 +12,9 @@ import {
 } from 'type-graphql';
 import * as bcrypt from 'bcryptjs';
 
-import User, { UserProfile, UserImage } from './user.schema';
-import UserService from './user.service';
-import { CreateUserInput } from './user.input';
+import User, { UserProfile, UserImage } from '../schemas/user.schema';
+import UserService from '@services/user.service';
+import { CreateUserInput } from '@inputs/user.input';
 import Context from '@config/context';
 import authMiddleware from '@middlewares/auth.middleware';
 

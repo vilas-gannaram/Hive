@@ -1,3 +1,4 @@
+import 'reflect-metadata';
 import { MiddlewareFn } from 'type-graphql';
 import jwt from 'jsonwebtoken';
 import Context from '@config/context';

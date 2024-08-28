@@ -1,8 +1,8 @@
 import 'reflect-metadata';
 import { Arg, Mutation, Resolver, UseMiddleware } from 'type-graphql';
-import AuthPayload from './auth.payload';
-import LoginInput from './auth.input';
-import AuthService from './auth.service';
+import AuthPayload from '@schemas/auth.payload';
+import LoginInput from '@inputs/auth.input';
+import AuthService from '@services/auth.service';
 import authMiddleware from '@middlewares/auth.middleware';
 
 @Resolver()

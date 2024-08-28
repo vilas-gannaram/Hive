@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import bcrypt from 'bcryptjs';
 import prisma from '@config/prisma';
-import AuthPayload from './auth.payload';
+import AuthPayload from '@schemas/auth.payload';
 import CustomError from '@utils/customError';
 
 const ACCESS_TOKEN_SECRET = process.env.ACCESS_TOKEN_SECRET!;

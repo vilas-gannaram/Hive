@@ -11,7 +11,10 @@
 		"baseUrl": "./" /* Base directory for resolving non-relative module names. */,
 		"paths": {
 			"@config/*": ["src/config/*"],
-			"@modules/*": ["src/modules/*"],
+			"@inputs/*": ["src/inputs/*"],
+			"@resolvers/*": ["src/resolvers/*"],
+			"@schemas/*": ["src/schemas/*"],
+			"@services/*": ["src/services/*"],
 			"@middlewares/*": ["src/middlewares/*"],
 			"@utils/*": ["src/utils/*"]
 		} /* Paths to create aliases for cleaner imports. */,

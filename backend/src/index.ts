@@ -10,7 +10,7 @@ import type { Request, Response } from 'express';
 config();
 
 import Context from '@config/context';
-import resolvers from '@modules/index';
+import resolvers from '@resolvers/index';
 import errorMiddleware from '@middlewares/error.middleware';
 
 const app = async () => {

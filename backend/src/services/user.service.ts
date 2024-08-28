@@ -1,7 +1,7 @@
 import 'reflect-metadata';
 import prisma from '@config/prisma';
-import { CreateUserInput } from './user.input';
-import AuthService from '@modules/auth/auth.service';
+import { CreateUserInput } from '@inputs/user.input';
+import AuthService from 'src/services/auth.service';
 import CustomError from '@utils/customError';
 
 export default class UserService {

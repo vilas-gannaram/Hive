@@ -1,5 +1,5 @@
 import 'reflect-metadata';
-import User from '@modules/user/user.schema';
+import User from 'src/schemas/user.schema';
 import { Field, ObjectType } from 'type-graphql';
 
 @ObjectType()
