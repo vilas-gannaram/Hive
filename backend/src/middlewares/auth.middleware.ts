@@ -18,11 +18,8 @@ export const authMiddleware: MiddlewareFn<Context> = async (
 	try {
 		const payload = jwt.verify(token, process.env.ACCESS_TOKEN_SECRET!);
 
-		console.info('payload :', payload);
-
 		context.userId = (payload as any).userId; // Add userId to the context
 	} catch (err) {
-		console.error('Invalid token');
 		throw CustomError.unauthorized('Not authenticated'); // Optionally throw an error if the token is invalid
 	}
 

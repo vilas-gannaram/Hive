@@ -1,20 +1,17 @@
 import 'reflect-metadata';
 import { ApolloServer } from '@apollo/server';
 import { startStandaloneServer } from '@apollo/server/standalone';
-import { unwrapResolverError } from '@apollo/server/errors';
 import { GraphQLScalarType } from 'graphql';
 import { DateTimeResolver } from 'graphql-scalars';
 import { buildSchema } from 'type-graphql';
 import { config } from 'dotenv';
 
 import type { Request, Response } from 'express';
-
 config();
 
 import Context from '@config/context';
 import resolvers from '@modules/index';
 import errorMiddleware from '@middlewares/error.middleware';
-import CustomError from '@utils/customError';
 
 const app = async () => {
 	const schema = await buildSchema({
